@@ -1,0 +1,162 @@
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Militares</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js",
+                "firebase/database": "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Section -->
+        <div id="login-section" class="login-section">
+            <h2>Cadstro Militares</h2>
+            <form id="login-form">
+                <div class="form-fields-container">
+                    <div>
+                        <label for="login-equipe">Equipe:</label>
+                        <select id="login-equipe" required>
+                            <option value="">-- Sel. --</option>
+                            <option value="ALPHA">ALPHA</option>
+                            <option value="BRAVO">BRAVO</option>
+                            <option value="DELTA">DELTA</option>
+                            <option value="CHARLIE">CHARLIE</option>
+                            <option value="ECHO">ECHO</option>
+                        </select>
+                    </div>
+                    <div>
+                         <label for="login-senha">Senha:</label>
+                         <input type="password" id="login-senha" required>
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit">Entrar</button>
+                </div>
+            </form>
+             <p id="login-error" style="color: red; text-align: center; margin-top: 10px;"></p>
+        </div>
+
+        <!-- Ranking Section (initially hidden) -->
+        <div id="ranking-container" class="ranking-container hidden">
+             <h1>Ranking Militar</h1>
+
+            <div class="form-section">
+                <h2>Cadastrar / Editar Militar</h2>
+                <form id="military-form">
+                    <input type="hidden" id="firebase-key">
+                    <div class="form-fields-container">
+                        <div>
+                            <label for="equipe">Equipe:</label>
+                            <select id="equipe" required>
+                                <option value="">-- Sel. --</option>
+                                <option value="ALPHA">ALPHA</option>
+                                <option value="BRAVO">BRAVO</option>
+                                <option value="DELTA">DELTA</option>
+                                <option value="CHARLIE">CHARLIE</option>
+                                <option value="ECHO">ECHO</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="posto-graduacao">P/G:</label>
+                            <select id="posto-graduacao" required>
+                                <option value="">-- Sel. --</option>
+                                <option value="Coronel">Cel</option>
+                                <option value="Tenente-Coronel">TCel</option>
+                                <option value="Major">Maj</option>
+                                <option value="Capitão">Cap</option>
+                                <option value="1º Tenente">1º Ten</option>
+                                <option value="2º Tenente">2º Ten</option>
+                                <option value="Aspirante">Asp</option>
+                                <option value="Subtenente">S Ten</option>
+                                <option value="1º Sargento">1º Sgt</option>
+                                <option value="2º Sargento">2º Sgt</option>
+                                <option value="3º Sargento">3º Sgt</option>
+                                <option value="Cabo">Cb</option>
+                                <option value="Soldado">Sd</option>
+                                <option value="Soldado 2ª Classe">Sd 2ª Cl</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="nome-guerra">Nome de Guerra:</label>
+                            <input type="text" id="nome-guerra" required>
+                        </div>
+                        <div>
+                            <label for="re">RE:</label>
+                            <input type="text" id="re" required pattern="\d{6}" title="RE deve conter exatamente 6 dígitos numéricos" maxlength="6">
+                        </div>
+                        <div>
+                            <label for="data-promocao">Data Promoção:</label>
+                            <input type="date" id="data-promocao">
+                        </div>
+                        <div>
+                             <label for="senha">Senha:</label>
+                             <input type="password" id="senha" required>
+                             <!-- WARNING: Storing plaintext passwords is not secure for production! -->
+                        </div>
+                        <div>
+                             <label for="status">Status:</label>
+                             <select id="status" required>
+                                <option value="NORMAL" selected>NORMAL</option>
+                                <option value="FERIAS">FERIAS</option>
+                                <option value="LP">LP</option>
+                                <option value="NAO FAZ JUS">NÃO FAZ JUS</option>
+                             </select>
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" id="submit-button">Cadastrar</button>
+                        <button type="button" id="cancel-edit" style="display:none;">Cancelar Edição</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="ranking-section">
+                <h2>Pesquisa por RE</h2>
+                <div class="search-container">
+                    <label for="search-re">Buscar por RE:</label>
+                    <input type="number" id="search-re" placeholder="Digite o RE">
+                </div>
+
+                <h2>Lista (<span id="ranking-team-name">Toda Equipe</span>)</h2>
+
+                <div id="ranking-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Equipe</th>
+                                <th>Posto / Graduação</th>
+                                <th>Nome de Guerra</th>
+                                <th>RE</th>
+                                <th>Data Promoção</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <div id="ranking-table-wrapper">
+                            <tbody id="ranking-table-body">
+                                <tr>
+                                    <td colspan="8" style="text-align: center;">Carregando ranking...</td>
+                                </tr>
+                            </tbody>
+                        </div>
+                    </table>
+                </div>
+            </div>
+             <div class="logout-button-container">
+                 <button id="logout-button" type="button">Sair</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js" type="module"></script>
+</body>
+</html>

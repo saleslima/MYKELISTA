@@ -1,0 +1,293 @@
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    text-align: center;
+    color: #555;
+}
+
+.form-section, .ranking-section, .login-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Style for the container wrapping the form fields */
+.form-fields-container {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 15px; 
+    margin-bottom: 20px;
+}
+
+/* Style for individual field groups (label + input/select) */
+.form-fields-container > div {
+    flex: 1 1 180px; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+/* Specific styling adjustments for narrower fields */
+/* Instead of fixed flex-basis, let them shrink more if needed but prefer less space */
+.form-fields-container > div:has(#equipe),
+.form-fields-container > div:has(#login-equipe),
+.form-fields-container > div:has(#posto-graduacao),
+.form-fields-container > div:has(#status) {
+     /* Allow them to be slightly narrower than other fields if space is limited */
+     flex-basis: 120px; 
+     min-width: 80px; 
+}
+
+/* Specific style for RE to give it a consistent width */
+.form-fields-container > div:has(#re) {
+     flex-basis: 100px; 
+     min-width: 100px; 
+     max-width: 120px; 
+}
+
+/* Adjust login form fields to potentially be wider */
+.login-section .form-fields-container > div {
+     flex: 1 1 200px; 
+}
+
+
+.form-fields-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    white-space: nowrap; 
+}
+
+.form-fields-container input[type="text"],
+.form-fields-container input[type="number"],
+.form-fields-container input[type="password"],
+.form-fields-container input[type="date"],
+.form-fields-container select {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-buttons {
+    text-align: center; 
+    margin-top: 20px;
+}
+
+button {
+    display: inline-block;
+    background: #5cb85c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-bottom: 10px; 
+}
+
+button:hover {
+    background: #4cae4c;
+}
+
+button#cancel-edit {
+    background: #f0ad4e;
+}
+button#cancel-edit:hover {
+    background: #ec971f;
+}
+
+button.delete-btn {
+    background: #d9534f;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+button.delete-btn:hover {
+     background: #c9302c;
+}
+
+button.edit-btn {
+    background: #0275d8;
+    padding: 5px 10px;
+    font-size: 14px;
+    margin-right: 5px;
+}
+button.edit-btn:hover {
+     background: #025aa5;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    /* margin-top: 20px; Removed margin as it's inside wrapper */
+    table-layout: auto; 
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    word-break: break-word; 
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #e9e9e9;
+}
+
+/* Style for the search container */
+.search-container {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    flex-wrap: wrap; 
+}
+
+.search-container label {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.search-container input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-grow: 1; 
+    min-width: 100px; 
+    max-width: 250px; 
+}
+
+/* Style for the table body wrapper to enable scrolling */
+#ranking-table-wrapper {
+    max-height: 400px; 
+    overflow-y: auto; 
+    overflow-x: auto; 
+    margin-top: 20px; 
+}
+
+/* Utility class to hide elements */
+.hidden {
+    display: none;
+}
+
+.logout-button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#logout-button {
+    background-color: #6c757d; 
+}
+
+#logout-button:hover {
+    background-color: #5a6268;
+}
+
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    body {
+        padding: 10px; 
+    }
+
+    .container {
+        padding: 15px; 
+        margin: 10px auto; 
+    }
+
+    h1 {
+        font-size: 1.8em; 
+    }
+
+    h2 {
+         font-size: 1.4em; 
+    }
+
+     /* Make form fields stack vertically on smaller screens */
+    .form-fields-container > div {
+        flex: 1 1 100%; 
+        min-width: auto; 
+    }
+
+     /* Adjust specific field width suggestions */
+    .form-fields-container > div:has(#equipe),
+    .form-fields-container > div:has(#login-equipe), 
+    .form-fields-container > div:has(#posto-graduacao),
+    .form-fields-container > div:has(#re),
+    .form-fields-container > div:has(#status) {
+         flex-basis: auto; 
+         min-width: auto; 
+         max-width: none; 
+    }
+
+     /* Adjust login form fields on small screens */
+    .login-section .form-fields-container > div {
+         flex: 1 1 100%;
+    }
+
+
+    .form-buttons {
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+     }
+
+    button {
+        width: 100%; 
+        margin-right: 0; 
+        margin-bottom: 10px; 
+        max-width: 250px; 
+    }
+
+     .search-container {
+        flex-direction: column; 
+        align-items: flex-start; 
+     }
+
+     .search-container input[type="number"] {
+        width: 100%; 
+        max-width: none; 
+     }
+
+     /* Adjust table header/data padding on smaller screens if needed */
+    th, td {
+        padding: 8px; 
+        font-size: 0.9em; 
+    }
+
+    /* Consider hiding less important columns on very small screens if horizontal scroll isn't preferred */
+    /* Example: hide Data Promoção on very small screens (< 480px) */
+    /* @media (max-width: 480px) {
+        th:nth-child(6), td:nth-child(6) {
+            display: none;
+        }
+    } */
+}
